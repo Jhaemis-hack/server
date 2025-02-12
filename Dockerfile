@@ -3,8 +3,11 @@ FROM nginx:latest
 # Copy the fixed NGINX configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Set the dynamic port assigned by Render/Koyeb
+# Set default port (fallback to 8080 if PORT is not set)
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+# Replace $PORT in the config file before starting NGINX
+CMD envsubst '$PORT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf && \
+    nginx -g "daemon off;
+
