@@ -8,6 +8,7 @@ ENV PORT=8080
 EXPOSE 8080
 
 # Replace $PORT in the config file before starting NGINX
-CMD envsubst '$PORT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf && \
-    nginx -g "daemon off;
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+
+
 
