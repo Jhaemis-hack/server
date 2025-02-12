@@ -1,11 +1,10 @@
-# Use the official Nginx base image
 FROM nginx:latest
 
-# Copy custom Nginx config to the container
+# Copy the fixed NGINX configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80 for Fly.io
-EXPOSE 80
+# Set the dynamic port assigned by Render/Koyeb
+ENV PORT=8080
+EXPOSE 8080
 
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
