@@ -7,6 +7,12 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ENV PORT=8080
 EXPOSE 8080
 
+# Install gettext-base for envsubst
+RUN apt-get update && apt-get install -y gettext-base
+
+# Copy the template
+COPY nginx.template /etc/nginx/nginx.template
+
 # Replace $PORT in the config file before starting NGINX
 CMD sh -c "envsubst '\$PORT' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
 
